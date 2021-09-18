@@ -11,12 +11,22 @@ const styles = {
     marginRight: "auto",
     marginLeft: "auto",
     left: 0,
-    right: 0,
-    top: 250,
+    right: 800,
+    top: 200,
     textAlign: "center",
     zIndex: 9,
-    width: 640,
-    height: 480,
+    width: 960,
+    height: 720,
+  },
+  countBox: {
+    position: "absolute",
+    marginRight: "auto",
+    marginLeft: "auto",
+    left: 1100,
+    right: 0,
+    top: 600,
+    width: 400,
+    height: 100,
   },
 };
 
@@ -125,7 +135,7 @@ function Counter(props) {
   }
 
   useEffect(() => {
-    count.current = 0
+    count.current = 0;
     //console.log(count.current)
     //console.log("rendered counter")
     const pose = new Pose({
@@ -159,15 +169,26 @@ function Counter(props) {
     }
   });
   //console.log(props)
+  function resetCount(){
+    //console.log("clicked")
+    count.current=0
+  }
+
   return (
     <div>
       <Webcam ref={webcamRef} style={styles.webcam} />
       <canvas ref={canvasRef} style={styles.webcam} />
-      {props.exercise}
-      <div>
+      <div style={styles.countBox}>
         {" "}
         Count :
-        <input ref={countTextbox} value={count.current} type="text" />
+        <input
+          ref={countTextbox}
+          value={count.current}
+          type="text"
+          textAlign="center"
+        />
+        <br></br>
+        <button onClick={resetCount}>Reset Counter</button>
       </div>
     </div>
   );

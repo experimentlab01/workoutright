@@ -4,6 +4,7 @@ import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
 import { useRef, useEffect } from "react";
 import angleBetweenThreePoints from "./angle";
+import yoga1 from "../assets/images/yogapose.png";
 
 const styles = {
   webcam: {
@@ -11,12 +12,20 @@ const styles = {
     marginRight: "auto",
     marginLeft: "auto",
     left: 0,
-    right: 0,
-    top: 250,
+    right: 800,
+    top: 200,
     textAlign: "center",
     zIndex: 9,
-    width: 640,
-    height: 480,
+    width: 960,
+    height: 720,
+  },
+  info: {
+    position: "absolute",
+    marginRight: "auto",
+    marginLeft: "auto",
+    left: 1300,
+    right: 0,
+    top: 300,
   },
 };
 
@@ -149,9 +158,17 @@ const YogaPose = () => {
 
       canvasCtx.font = "48px aerial";
       canvasCtx.fillText(leftHandAngle, leftHand[1].x + 20, leftHand[1].y + 20);
-      canvasCtx.fillText(rightHandAngle, rightHand[1].x - 120, rightHand[1].y + 20);
+      canvasCtx.fillText(
+        rightHandAngle,
+        rightHand[1].x - 120,
+        rightHand[1].y + 20
+      );
       canvasCtx.fillText(leftLegAngle, leftLeg[1].x + 20, leftLeg[1].y + 20);
-      canvasCtx.fillText(rightLegAngle, rightLeg[1].x - 120, rightLeg[1].y + 20);
+      canvasCtx.fillText(
+        rightLegAngle,
+        rightLeg[1].x - 120,
+        rightLeg[1].y + 20
+      );
       canvasCtx.restore();
     }
   }
@@ -188,10 +205,15 @@ const YogaPose = () => {
 
   return (
     <div>
-      Hey this is yoga pose component
       <div>
         <Webcam ref={webcamRef} style={styles.webcam} />
         <canvas ref={canvasRef} style={styles.webcam} />
+      </div>
+      <div style={styles.info}>
+        <p>
+          <h1>Virabhadrasana</h1>
+        </p>
+        <img src={yoga1} alternate="Yoga 1"></img>
       </div>
     </div>
   );

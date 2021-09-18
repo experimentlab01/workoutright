@@ -1,3 +1,10 @@
+body {
+  background-color: #5cdb95;
+  color: white;
+  padding: 40px;
+  font-family: Arial;
+}
+
 .App{
   display: flex;
   align-items: center;
@@ -9,4 +16,10 @@
   width: 500;
   display: flex;
   justify-content: space-evenly;
+}
+
+.home{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
 }
