@@ -3,7 +3,7 @@ import {Pose,POSE_CONNECTIONS} from '@mediapipe/pose'
 import * as cam from '@mediapipe/camera_utils'
 import Webcam from "react-webcam"
 import {useRef, useEffect} from "react"
-
+import angleBetweenThreePoints from "./components/angle";
 const styles = {
   webcam: {
     position:"absolute",
@@ -29,10 +29,6 @@ function App() {
 
     if(results.poseLandmarks){
       const position = results.poseLandmarks
-    
-      //ratios between 0-1
-      // 12,14,16 index of right hand, Check pose_tracking_full body_landmarks.png for ref
-      const posArray = [position[12],position[14],position[16]]
 
       // set height and width of canvas
       canvasRef.current.width = webcamRef.current.video.videoWidth
@@ -40,8 +36,18 @@ function App() {
       
       const width = canvasRef.current.width
       const height = canvasRef.current.height
-
       //console.log(width,height)
+
+      //ratios between 0-1
+      // 12,14,16 index of right hand, Check pose_tracking_full body_landmarks.png for ref
+      const upadatedPos = []
+
+      for(let i=12;i<17;i+=2){
+        upadatedPos.push({ x:position[i].x*width, y:position[i].y*height })
+      }
+      //console.log(upadatedPos)
+      const angle = angleBetweenThreePoints(upadatedPos)
+      //console.log(angle)
 
       const canvasElement = canvasRef.current
       const canvasCtx = canvasElement.getContext("2d")
@@ -58,17 +64,20 @@ function App() {
         // )
         for(let i=0; i<2; i++){
           canvasCtx.beginPath()
-          canvasCtx.moveTo(posArray[i].x*width, posArray[i].y*height)
-          canvasCtx.lineTo(posArray[i+1].x*width, posArray[i+1].y*height)
+          canvasCtx.moveTo(upadatedPos[i].x, upadatedPos[i].y)
+          canvasCtx.lineTo(upadatedPos[i+1].x, upadatedPos[i+1].y)
           canvasCtx.lineWidth = 2
+          canvasCtx.strokeStyle = "white"
           canvasCtx.stroke()
         }
         for(let i=0; i<3; i++){
           canvasCtx.beginPath()
-          canvasCtx.arc(posArray[i].x*width, posArray[i].y*height, 10, 0, Math.PI*2)
+          canvasCtx.arc(upadatedPos[i].x, upadatedPos[i].y, 10, 0, Math.PI*2)
           canvasCtx.fillStyle = '#AAFF00'
           canvasCtx.fill()
         }
+        canvasCtx.font = '48px aerial'
+        canvasCtx.fillText(Math.round(angle),upadatedPos[1].x+10,upadatedPos[1].y+10)
         canvasCtx.restore();
     }
   }
