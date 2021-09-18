@@ -27,7 +27,7 @@ const styles = {
     marginLeft: "auto",
     left: 1250,
     right: 0,
-    top: 200,
+    top: 230,
   },
   back: {
     position: "absolute",
@@ -39,7 +39,7 @@ const styles = {
   }
 };
 
-const YogaPose = () => {
+const Virabhadrasana = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   let camera = null;
@@ -228,4 +228,4 @@ const YogaPose = () => {
   );
 };
 
-export default YogaPose;
+export default Virabhadrasana;
