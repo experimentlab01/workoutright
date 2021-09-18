@@ -12,6 +12,7 @@ const styles = {
       marginLeft:"auto",
       left:0,
       right:0,
+      top:200,
       textAlign:"center",
       zIndex:9,
       width:640,
@@ -22,14 +23,14 @@ const styles = {
 // Try implementing it with state later
 let count = 0
 let dir = 0
-
+  
   function Counter() {
     const webcamRef = useRef(null)
     const canvasRef = useRef(null)
     let camera = null
     // const drawconnect = window.drawConnectors
     // const drawlandmark = window.drawLandmarks
-
+    
     function onResult(results){
       //console.log("test4")
       if(results.poseLandmarks){
@@ -38,15 +39,15 @@ let dir = 0
         // set height and width of canvas
         canvasRef.current.width = webcamRef.current.video.videoWidth
         canvasRef.current.height = webcamRef.current.video.videoHeight
-
+        
         const width = canvasRef.current.width
         const height = canvasRef.current.height
         //console.log(width,height)
-
+  
         //ratios between 0-1
         // 12,14,16 index of right hand, Check pose_tracking_full body_landmarks.png for ref
         const upadatedPos = []
-
+  
         for(let i=12;i<17;i+=2){
           upadatedPos.push({ x:position[i].x*width, y:position[i].y*height })
         }
@@ -71,10 +72,10 @@ let dir = 0
         const canvasElement = canvasRef.current
         const canvasCtx = canvasElement.getContext("2d")
         canvasCtx.save()
-
+  
         canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height)
         //canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height)
-
+        
           // drawconnect(canvasCtx, results.poseLandmarks,POSE_CONNECTIONS,
           //   {visibilityMin:0.65, color: '#00FF00', lineWidth: 4}
           // );
@@ -100,7 +101,7 @@ let dir = 0
           canvasCtx.restore();
       }
     }
-
+  
     useEffect(()=>{
       //console.log("test2")
       const pose = new Pose({
@@ -113,9 +114,9 @@ let dir = 0
         minDetectionConfidence: 0.5,
         minTrackingConfidence: 0.5
       })
-
+  
       pose.onResults(onResult)
-
+      
       if(typeof webcamRef.current!=="undefined" && webcamRef.current!==null){
         camera = new cam.Camera(webcamRef.current.video,{
           onFrame: async()=>{
@@ -128,9 +129,9 @@ let dir = 0
       }
       //console.log("test3")
     })
-
+  
     return (
-      <div className ="App">
+      <div>
         <Webcam 
           ref={webcamRef}
           style = {styles.webcam}
@@ -143,4 +144,4 @@ let dir = 0
     );
 }
 
-export default Counter; 
+export default Counter;
