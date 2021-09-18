@@ -1,8 +1,8 @@
 import React from "react";
-import { Pose, POSE_CONNECTIONS } from "@mediapipe/pose";
+import { Pose } from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import angleBetweenThreePoints from "./angle";
 
 const styles = {
@@ -23,13 +23,13 @@ const styles = {
 const exrInfo = {
   bicepCurls: {
     index: [12, 14, 16],
-    ul: 165,
-    ll: 45,
+    ul: 160,
+    ll: 50,
   },
   squats: {
     index: [24, 26, 28],
-    ul: 180,
-    ll: 0,
+    ul: 170,
+    ll: 50,
   },
   pushups: {
     index: [12, 14, 16],
@@ -125,6 +125,9 @@ function Counter(props) {
   }
 
   useEffect(() => {
+    count.current = 0
+    //console.log(count.current)
+    //console.log("rendered counter")
     const pose = new Pose({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.4.1624666670/${file}`;

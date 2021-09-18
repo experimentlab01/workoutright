@@ -4,6 +4,10 @@ import Counter from "./../components/counter";
 const CounterPage = () => {
   const [exr, setExr] = useState("bicepCurls");
 
+  // useEffect(() => {
+  //   console.log("rendered counter page")
+  // });
+
   return (
     <div>
       This is the CounterPage Page
@@ -24,7 +28,7 @@ const CounterPage = () => {
         </select>
       </div>
       <br />
-      <Counter exercise={exr}/>
+      <Counter exercise={exr} />
     </div>
   );
 };

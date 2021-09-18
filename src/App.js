@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css"
 import Header from "./components/header"
-import { BrowserRouter,Route,Switch } from "react-router-dom"
+import { BrowserRouter,Route } from "react-router-dom"
 import Home from './pages/Home'
 import CounterPage from "./pages/CounterPage"
 import Yoga from './pages/Yoga'
