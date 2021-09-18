@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/images/fitness.png";
 import exercise from "../assets/images/exercise.png";
 import meditaion from "../assets/images/meditation.png";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { Button } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
 
 export const Home = () => {
+  // const [yogaRedirect,setYogaRedirect] = useState(false)
+  // function onClickYoga(){
+  //   setYogaRedirect(true)
+  // }
+
+  // if(yogaRedirect){
+  //   return(
+  //     <Redirect push to='/yoga'/>
+  //   )
+  // }
+
   return (
     <div>
       <div className="home">
@@ -22,25 +35,30 @@ export const Home = () => {
           <p>
             <h1>Welcome to WorkoutRight</h1>
             <h4 style={{ marginTop: 0 }}>Making people fit in a smarter way.</h4>
-            <div style={{ display: "flex" }}>
-              <Link to="/yoga">
-                <img
-                  style={{ width: 100, marginLeft: 10 }}
-                  src={meditaion}
-                  alt="meditation"
-                ></img>
-              </Link>
-              <Link to="/counter">
-                <div>
-                  <img
-                    style={{ width: 100, marginLeft: 100}}
-                    src={exercise}
-                    alt="exercise"
-                  ></img>
-                </div>
-              </Link>
-            </div>
           </p>
+          <div style={{ display: "flex" }}>
+            <Link to="/yoga">
+              <Button
+                size="large"
+                variant="contained"
+                color="primary"
+                startIcon={<Avatar src={meditaion} />}
+              >
+                Yoga
+              </Button>
+            </Link>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to="/counter">
+              <Button
+                size="large"
+                variant="contained"
+                color="primary"
+                startIcon={<Avatar src={exercise} />}
+              >
+                Core Training
+              </Button>
+            </Link>
+          </div>
         </div>
         <img
           src={logo}

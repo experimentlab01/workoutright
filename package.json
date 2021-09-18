@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "@mediapipe/camera_utils": "^0.3.1620247984",
     "@mediapipe/pose": "^0.4.1624666670",
     "@testing-library/jest-dom": "^5.11.4",
