@@ -5,6 +5,8 @@ import Webcam from "react-webcam";
 import { useRef, useEffect } from "react";
 import angleBetweenThreePoints from "./angle";
 import yoga1 from "../assets/images/yogapose.png";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 const styles = {
   webcam: {
@@ -23,30 +25,33 @@ const styles = {
     position: "absolute",
     marginRight: "auto",
     marginLeft: "auto",
-    left: 1300,
+    left: 1250,
     right: 0,
-    top: 300,
+    top: 200,
   },
+  back: {
+    position: "absolute",
+    marginRight: "auto",
+    marginLeft: "auto",
+    left: 1700,
+    right: 0,
+    top: 850,
+  }
 };
 
 const YogaPose = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-
   let camera = null;
 
   function onResult(results) {
     if (results.poseLandmarks) {
-      //console.log(results.poseLandmarks);
       const position = results.poseLandmarks;
-      //console.log(position);
-      //console.log(position[0].x)
       canvasRef.current.width = webcamRef.current.video.videoWidth;
       canvasRef.current.height = webcamRef.current.video.videoHeight;
 
       const width = canvasRef.current.width;
       const height = canvasRef.current.height;
-      //const upadatedPos = [];
 
       const leftHand = [];
       const rightHand = [];
@@ -131,10 +136,6 @@ const YogaPose = () => {
           canvasCtx.strokeStyle = "red";
         }
         canvasCtx.stroke();
-
-        //canvasCtx.lineWidth = 5;
-        //canvasCtx.strokeStyle = "white";
-        //canvasCtx.stroke();
       }
       for (let i = 0; i < 3; i++) {
         canvasCtx.beginPath();
@@ -214,6 +215,14 @@ const YogaPose = () => {
           <h1>Virabhadrasana</h1>
         </p>
         <img src={yoga1} alternate="Yoga 1"></img>
+      </div>
+
+      <div style={styles.back}>
+        <Link to="/">
+          <Button size="large" variant="outlined" color="primary">
+            Back
+          </Button>
+        </Link>
       </div>
     </div>
   );

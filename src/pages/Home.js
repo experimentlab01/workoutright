@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../assets/images/fitness.png";
 import exercise from "../assets/images/exercise.png";
 import meditaion from "../assets/images/meditation.png";
 import "../App.css";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -33,8 +33,8 @@ export const Home = () => {
           }}
         >
           <p>
-            <h1>Welcome to WorkoutRight</h1>
-            <h4 style={{ marginTop: 0 }}>Making people fit in a smarter way.</h4>
+            <h1>Welcome to F.I.M.P.</h1>
+            <h4 style={{ marginTop: 0 }}>We make people simp for fitness.</h4>
           </p>
           <div style={{ display: "flex" }}>
             <Link to="/yoga">

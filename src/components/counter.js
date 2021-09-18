@@ -2,8 +2,13 @@ import React from "react";
 import { Pose } from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import angleBetweenThreePoints from "./angle";
+import { Button, Select,MenuItem } from "@material-ui/core";
+import bicepcurls from "../assets/images/bicepcurls.png";
+import crunches from "../assets/images/crunches.png";
+import pushups from "../assets/images/pushup.png";
+import squats from "../assets/images/squats.png";
 
 const styles = {
   webcam: {
@@ -27,6 +32,17 @@ const styles = {
     top: 600,
     width: 400,
     height: 100,
+  },
+  selectBox: {
+    position: "absolute",
+    marginRight: "auto",
+    marginLeft: "auto",
+    left: 1000,
+    right: 0,
+    top: 250,
+    textAlign: "center",
+    width: 300,
+    height: 30,
   },
 };
 
@@ -53,7 +69,24 @@ const exrInfo = {
   },
 };
 
-function Counter(props) {
+function Counter() {
+  const [exr, setExr] = useState("bicepCurls");
+
+  // useEffect(() => {
+  //   console.log("rendered counter page")
+  // });
+
+  let imgSource;
+  if (exr == "bicepCurls") {
+    imgSource = bicepcurls;
+  } else if (exr == "squats") {
+    imgSource = squats;
+  } else if (exr == "pushups") {
+    imgSource = pushups;
+  } else if (exr == "crunches") {
+    imgSource = crunches;
+  }
+
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const count = useRef(0);
@@ -75,7 +108,7 @@ function Counter(props) {
 
       //ratios between 0-1, covert them to pixel positions
       const upadatedPos = [];
-      const indexArray = exrInfo[props.exercise].index;
+      const indexArray = exrInfo[exr].index;
 
       for (let i = 0; i < 3; i += 1) {
         upadatedPos.push({
@@ -89,13 +122,13 @@ function Counter(props) {
 
       // Count reps
       //0 is down, 1 is up
-      if (angle.current > exrInfo[props.exercise].ul) {
+      if (angle.current > exrInfo[exr].ul) {
         if (dir.current == 0) {
           //count.current = count.current + 0.5
           dir.current = 1;
         }
       }
-      if (angle.current < exrInfo[props.exercise].ll) {
+      if (angle.current < exrInfo[exr].ll) {
         if (dir.current == 1) {
           count.current = count.current + 1;
           dir.current = 0;
@@ -159,7 +192,7 @@ function Counter(props) {
       camera = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
           countTextbox.current.value = count.current;
-          //console.log(count.current)
+          //console.log("hello",countTextbox.current.value)
           await pose.send({ image: webcamRef.current.video });
         },
         width: 640,
@@ -169,27 +202,58 @@ function Counter(props) {
     }
   });
   //console.log(props)
-  function resetCount(){
-    //console.log("clicked")
-    count.current=0
+  function resetCount() {
+    console.log("clicked");
+    count.current = 0;
   }
 
   return (
     <div>
+      <div style={styles.selectBox}>
+        <Select
+          value={exr}
+          onChange={(event) => {
+            const selectedExr = event.target.value;
+            setExr(selectedExr);
+          }}
+        >
+          <MenuItem value="bicepCurls">Bicep Curls</MenuItem>
+          <MenuItem value="squats">Squats</MenuItem>
+          <MenuItem value="pushups">Push Ups</MenuItem>
+          <MenuItem value="crunches">Crunches</MenuItem>
+        </Select>
+        <br></br>
+        <br></br>
+        <br></br>
+        <img src={imgSource} width="200" alternate="bicepimage"></img>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div style={{ top: 50 }}>
+          {" "}
+          Count :
+          <input
+            variant="filled"
+            ref={countTextbox}
+            value={count.current}
+            textAlign="center"
+          />
+          <br></br>
+          <Button
+            style={{ top: 15 }}
+            size="large"
+            variant="contained"
+            color="primary"
+            onClick={resetCount}
+          >
+            Reset Counter
+          </Button>
+        </div>
+      </div>
       <Webcam ref={webcamRef} style={styles.webcam} />
       <canvas ref={canvasRef} style={styles.webcam} />
-      <div style={styles.countBox}>
-        {" "}
-        Count :
-        <input
-          ref={countTextbox}
-          value={count.current}
-          type="text"
-          textAlign="center"
-        />
-        <br></br>
-        <button onClick={resetCount}>Reset Counter</button>
-      </div>
     </div>
   );
 }
