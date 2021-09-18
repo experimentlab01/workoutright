@@ -6,7 +6,6 @@ import Home from './pages/Home'
 import CounterPage from "./pages/CounterPage"
 import Yoga from './pages/Yoga'
 
-
 function App(){
   
   
