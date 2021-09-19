@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+## Inspiration
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+We all know the importance of adopting a healthy lifestyle. Besides keeping your body energized, fitness can also help achieve mental calmness. During the pandemic staying fit was one of the major concerns of many individuals and because of the lockdown and quarantines our whole lifestyle got affected. 
+WorkoutRight gives you the tools, the motivation, and the support you need to stay fit. 
 
-## Available Scripts
+## What it does
+WorkoutRight is a ML assisted personal trainer. The main idea was to monitor a person while he/she is working out and give them feedback on their performance. Broadly how well he/she is performing that particular exercise. So we thought of dividing the project into two sections, one for the rep-based exercises and the other for Yoga.
 
-In the project directory, you can run:
+In the workout section, the number of reps that you perform of a particular exercise is counted and in the Yoga section, you are assisted in performing a Yoga exercise correctly with the help of markers tracked over your body which turn green when that particular body part is in right posture and at the correct angle for that Yoga Pose. Another thing to note is that with this approach of ML-assisted fitness, several discomforts and injuries which are caused due to an exercise performed in the wrong posture can be minimized.
 
-### `yarn start`
+## How we built it
+Built with Google's open-source machine learning solution MediaPipe and ReactJS library.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Challenges we ran into
+- One of the major challenge that we faced was to track a person's body in real time and make sure the assessment was precise and fast enough.
+- Another challenge was to make the project optimized enough so that the overall user experience is smooth and seamless.
+- Our team didn't know much about web development so we had to learn a couple of new things to make it a web based project.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Accomplishments that we're proud of
+- We were able to achieve all of the major functionalities that we planned beforehand.
+- Our project motivates people to stay fit without dealing with the hassle of going to the gym or hiring a personal trainer.
 
-### `yarn test`
+## What we learned
+Working remotely and virtually as a team is one big thing that we all learnt during this Hackathon. 
+On the technical aspect we learnt many concepts of Web Development, Machine learning and Computer Vision.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## What's next for Workout Right
+- Integration of physical devices like smart watches and fit bands into the project so that we can even monitor a persons BP, HeartRate and Oxygen level through out the workout session.
+- Making the project production ready and more scalable. 
