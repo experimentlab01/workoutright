@@ -36,13 +36,15 @@ const styles = {
     left: 1700,
     right: 0,
     top: 850,
-  }
+  },
 };
 
 const Virabhadrasana = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   let camera = null;
+
+  var t = new Date().getTime();
 
   function onResult(results) {
     if (results.poseLandmarks) {
@@ -93,6 +95,34 @@ const Virabhadrasana = () => {
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
       //canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height)
 
+      let inRangeRightHand;
+      if (rightHandAngle >= 170 && rightHandAngle <= 190) {
+        inRangeRightHand = true;
+      } else {
+        inRangeRightHand = false;
+      }
+
+      let inRangeLeftHand;
+      if (leftHandAngle >= 170 && leftHandAngle <= 190) {
+        inRangeLeftHand = true;
+      } else {
+        inRangeLeftHand = false;
+      }
+
+      let inRangeRightLeg;
+      if (rightLegAngle >= 170 && rightLegAngle <= 190) {
+        inRangeRightLeg = true;
+      } else {
+        inRangeRightLeg = false;
+      }
+
+      let inRangeLeftLeg;
+      if (leftLegAngle >= 110 && leftLegAngle <= 130) {
+        inRangeLeftLeg = true;
+      } else {
+        inRangeLeftLeg = false;
+      }
+
       for (let i = 0; i < 2; i++) {
         canvasCtx.beginPath();
         canvasCtx.lineWidth = 8;
@@ -100,37 +130,40 @@ const Virabhadrasana = () => {
         //right hand
         canvasCtx.moveTo(rightHand[i].x, rightHand[i].y);
         canvasCtx.lineTo(rightHand[i + 1].x, rightHand[i + 1].y);
-        if (rightHandAngle >= 170 && rightHandAngle <= 190) {
+        if (inRangeRightHand) {
           canvasCtx.strokeStyle = "green";
         } else {
           canvasCtx.strokeStyle = "red";
         }
         canvasCtx.stroke();
+
         //lefthand
         canvasCtx.beginPath();
         canvasCtx.moveTo(leftHand[i].x, leftHand[i].y);
         canvasCtx.lineTo(leftHand[i + 1].x, leftHand[i + 1].y);
-        if (leftHandAngle >= 170 && leftHandAngle <= 190) {
+        if (inRangeLeftHand) {
           canvasCtx.strokeStyle = "green";
         } else {
           canvasCtx.strokeStyle = "red";
         }
         canvasCtx.stroke();
+
         //right leg
         canvasCtx.beginPath();
         canvasCtx.moveTo(rightLeg[i].x, rightLeg[i].y);
         canvasCtx.lineTo(rightLeg[i + 1].x, rightLeg[i + 1].y);
-        if (rightLegAngle >= 170 && rightLegAngle <= 190) {
+        if (inRangeRightLeg) {
           canvasCtx.strokeStyle = "green";
         } else {
           canvasCtx.strokeStyle = "red";
         }
         canvasCtx.stroke();
+
         //left leg
         canvasCtx.beginPath();
         canvasCtx.moveTo(leftLeg[i].x, leftLeg[i].y);
         canvasCtx.lineTo(leftLeg[i + 1].x, leftLeg[i + 1].y);
-        if (leftLegAngle >= 125 && leftLegAngle <= 135) {
+        if (inRangeLeftLeg) {
           canvasCtx.strokeStyle = "green";
         } else {
           canvasCtx.strokeStyle = "red";
@@ -157,7 +190,18 @@ const Virabhadrasana = () => {
         canvasCtx.fill();
       }
 
-      canvasCtx.font = "48px aerial";
+      if (
+        !(
+          inRangeRightLeg &&
+          inRangeLeftLeg &&
+          inRangeLeftHand &&
+          inRangeRightHand
+        )
+      ) {
+        t = new Date().getTime();
+      }
+
+      canvasCtx.font = "30px aerial";
       canvasCtx.fillText(leftHandAngle, leftHand[1].x + 20, leftHand[1].y + 20);
       canvasCtx.fillText(
         rightHandAngle,
@@ -170,6 +214,16 @@ const Virabhadrasana = () => {
         rightLeg[1].x - 120,
         rightLeg[1].y + 20
       );
+
+      canvasCtx.font = "30px aerial";
+      canvasCtx.fillText(
+        "Seconds holded: ".concat(
+          String(Math.round((new Date().getTime() - t) / 1000))
+        ),
+        10,
+        40
+      );
+
       canvasCtx.restore();
     }
   }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Virabhadrasana from "../components/virabhadrasana";
-import Treepose from "../components/treepose";
+import Trikonasana from "../components/trikonasana";
 import { Link } from "react-router-dom";
 import { Button, Select, MenuItem } from "@material-ui/core";
 
@@ -34,7 +34,7 @@ const Yoga = () => {
       return <Virabhadrasana />;
     }
     else if(yoga == "trikonasana"){
-      return <Treepose/>
+      return <Trikonasana/>
     }
     return null;
   }
@@ -49,6 +49,7 @@ const Yoga = () => {
             setYoga(selectedYoga);
           }}
         >
+          <MenuItem value = "" disabled>Select Yoga Pose</MenuItem>
           <MenuItem value="virabhadrasana">Virabhadrasana</MenuItem>
           <MenuItem value="trikonasana">Trikonasana</MenuItem>
         </Select>
@@ -58,7 +59,7 @@ const Yoga = () => {
 
       <div style={styles.back}>
         <Link to="/">
-          <Button size="large" variant="outlined" color="primary">
+          <Button size="large" variant="contained" color="primary">
             Back
           </Button>
         </Link>

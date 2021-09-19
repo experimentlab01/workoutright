@@ -33,8 +33,8 @@ export const Home = () => {
           }}
         >
           <p>
-            <h1>Welcome to F.I.M.P.</h1>
-            <h4 style={{ marginTop: 0 }}>We make people simp for fitness.</h4>
+            <h1 style={{margin:0}}>Welcome to WorkoutRight</h1>
+            <h4 style={{margin:0}}>ML assisted fitness solution</h4>
           </p>
           <div style={{ display: "flex" }}>
             <Link to="/yoga">

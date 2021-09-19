@@ -217,6 +217,7 @@ function Counter() {
             setExr(selectedExr);
           }}
         >
+          <MenuItem value ="" disabled>Select Exercise</MenuItem>
           <MenuItem value="bicepCurls">Bicep Curls</MenuItem>
           <MenuItem value="squats">Squats</MenuItem>
           <MenuItem value="pushups">Push Ups</MenuItem>

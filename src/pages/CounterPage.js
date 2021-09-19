@@ -20,7 +20,7 @@ const CounterPage = () => {
       <Counter />
       <div style = {styles.back}>
         <Link to="/">
-          <Button size="large" variant="outlined" color="primary">
+          <Button size="large" variant="contained" color="primary">
             Back
           </Button>
         </Link>
