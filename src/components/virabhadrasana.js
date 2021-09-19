@@ -217,6 +217,7 @@ const Virabhadrasana = () => {
         rightLeg[1].y + 20
       );
 
+      canvasCtx.fillStyle = "black";
       canvasCtx.font = "30px aerial";
       canvasCtx.fillText(
         "Seconds holded: ".concat(

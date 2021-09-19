@@ -40,9 +40,11 @@ const styles = {
     marginLeft: "auto",
     left: 1000,
     right: 0,
-    top: 200,
+    top: 250,
     textAlign: "center",
-    width: 300,
+    width: 400,
+    color: "#05386B",
+    background: "#8EE4AF",
   },
   back: {
     position: "absolute",
@@ -68,12 +70,12 @@ const exrInfo = {
   pushups: {
     index: [12, 14, 16],
     ul: 160,
-    ll: 50,
+    ll: 80,
   },
   crunches: {
     index: [12, 24, 26],
-    ul: 180,
-    ll: 0,
+    ul: 140,
+    ll: 50,
   },
 };
 
@@ -81,7 +83,6 @@ let count = 0;
 let dir = 0;
 let angle = 0;
 function Counter(props) {
-
   //const [exr, setExr] = useState("bicepCurls");
 
   let imgSource;
@@ -106,7 +107,7 @@ function Counter(props) {
   function onResult(results) {
     if (results.poseLandmarks) {
       const position = results.poseLandmarks;
-     
+
       // set height and width of canvas
       canvasRef.current.width = webcamRef.current.video.videoWidth;
       canvasRef.current.height = webcamRef.current.video.videoHeight;
@@ -134,14 +135,14 @@ function Counter(props) {
         //console.log("test angle ",angle)
         if (dir === 0) {
           //count.current = count.current + 0.5
-          console.log(count," ",dir," decrement ",angle)
+          console.log(count, " ", dir, " decrement ", angle);
           dir = 1;
         }
       }
       if (angle < exrInfo[props.exercise].ll) {
         if (dir === 1) {
           count = count + 1;
-          console.log(count," ",dir," increment ",angle)
+          console.log(count, " ", dir, " increment ", angle);
           dir = 0;
         }
       }
@@ -169,17 +170,13 @@ function Counter(props) {
         canvasCtx.fill();
       }
       canvasCtx.font = "40px aerial";
-      canvasCtx.fillText(
-        angle,
-        upadatedPos[1].x + 10,
-        upadatedPos[1].y + 40
-      );
+      canvasCtx.fillText(angle, upadatedPos[1].x + 10, upadatedPos[1].y + 40);
       canvasCtx.restore();
     }
   }
 
   useEffect(() => {
-    console.log("rendered")
+    console.log("rendered");
     count = 0;
     dir = 0;
     //console.log(count.current)
@@ -225,21 +222,19 @@ function Counter(props) {
   return (
     <div>
       <div style={styles.selectBox}>
-       
-        <img src={imgSource} width="200" alternate="bicepimage"></img>
-        <br></br>
-        <br></br>
-        <br></br>
+        <h1>Bicep Curls</h1>
+        <img src={imgSource} width="300" alternate="bicepimage"></img>
         <br></br>
         <div style={{ top: 50 }}>
-          {" "}
-          Count :
+          <h1>Count</h1>
           <input
             variant="filled"
             ref={countTextbox}
             value={count}
             textAlign="center"
+            style={{ height: 50, fontSize: 40, width: 80 }}
           />
+          <br></br>
           <br></br>
           <Button
             style={{ top: 15 }}
