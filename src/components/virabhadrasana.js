@@ -23,11 +23,13 @@ const styles = {
   },
   info: {
     position: "absolute",
-    marginRight: "auto",
-    marginLeft: "auto",
-    left: 1250,
-    right: 0,
-    top: 230,
+    margin:"auto",
+    left: 1150,
+    right: 200,
+    top: 270,
+    color: "#05386B",
+    background: "#8EE4AF",
+    textAlign:"center"
   },
   back: {
     position: "absolute",
@@ -68,7 +70,7 @@ const Virabhadrasana = () => {
         let obj = {};
         obj["x"] = position[i].x * width;
         obj["y"] = position[i].y * height;
-        if (i % 2 == 0) {
+        if (i % 2 === 0) {
           rightHand.push(obj);
         } else {
           leftHand.push(obj);
@@ -78,7 +80,7 @@ const Virabhadrasana = () => {
         let obj = {};
         obj["x"] = position[i].x * width;
         obj["y"] = position[i].y * height;
-        if (i % 2 == 0) {
+        if (i % 2 === 0) {
           rightLeg.push(obj);
         } else {
           leftLeg.push(obj);
@@ -266,7 +268,7 @@ const Virabhadrasana = () => {
       </div>
       <div style={styles.info}>
         <p>
-          <h1>Virabhadrasana</h1>
+          Try to mimic and hold the following pose.
         </p>
         <img src={yoga1} alternate="Yoga 1"></img>
       </div>

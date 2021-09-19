@@ -23,9 +23,12 @@ const styles = {
     position: "absolute",
     marginRight: "auto",
     marginLeft: "auto",
-    left: 1250,
-    right: 0,
-    top: 230,
+    left: 1150,
+    right: 200,
+    top: 270,
+    color: "#05386B",
+    background: "#8EE4AF",
+    textAlign:"center"
   },
 };
 
@@ -52,7 +55,7 @@ const Trikonasana = () => {
         let obj = {};
         obj["x"] = position[i].x * width;
         obj["y"] = position[i].y * height;
-        if (i % 2 == 0) {
+        if (i % 2 === 0) {
           rightHand.push(obj);
         } else {
           leftHand.push(obj);
@@ -212,7 +215,7 @@ const Trikonasana = () => {
       </div>
       <div style={styles.info}>
         <p>
-          <h1>Trikonasana</h1>
+          Try to mimic this pose
         </p>
         <img src={yoga1} alternate="Yoga 2"></img>
       </div>

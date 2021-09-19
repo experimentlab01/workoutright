@@ -6,7 +6,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-
+import blob1 from "../assets/images/blob1.svg"
 export const Home = () => {
   // const [yogaRedirect,setYogaRedirect] = useState(false)
   // function onClickYoga(){
@@ -21,6 +21,7 @@ export const Home = () => {
 
   return (
     <div>
+      <img src={blob1} alt="blob1" style={{width:600,position:"absolute",marginLeft:-150,marginTop:-450,zIndex:-1}}></img>
       <div className="home">
         <div
           style={{
@@ -33,7 +34,7 @@ export const Home = () => {
           }}
         >
           <p>
-            <h1 style={{margin:0}}>Welcome to WorkoutRight</h1>
+            <h2 style={{margin:0}}>Welcome to WorkoutRight</h2>
             <h4 style={{margin:0}}>ML assisted fitness solution</h4>
           </p>
           <div style={{ display: "flex" }}>

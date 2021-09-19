@@ -3,6 +3,7 @@ import Virabhadrasana from "../components/virabhadrasana";
 import Trikonasana from "../components/trikonasana";
 import { Link } from "react-router-dom";
 import { Button, Select, MenuItem } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
 
 const styles = {
   back: {
@@ -30,11 +31,10 @@ const Yoga = () => {
   const [yoga, setYoga] = useState("virabhadrasana");
 
   function selectYoga() {
-    if (yoga == "virabhadrasana") {
+    if (yoga === "virabhadrasana") {
       return <Virabhadrasana />;
-    }
-    else if(yoga == "trikonasana"){
-      return <Trikonasana/>
+    } else if (yoga === "trikonasana") {
+      return <Trikonasana />;
     }
     return null;
   }
@@ -42,17 +42,21 @@ const Yoga = () => {
   return (
     <div>
       <div style={styles.selectBox}>
-        <Select
-          value={yoga}
-          onChange={(event) => {
-            const selectedYoga = event.target.value;
-            setYoga(selectedYoga);
-          }}
-        >
-          <MenuItem value = "" disabled>Select Yoga Pose</MenuItem>
-          <MenuItem value="virabhadrasana">Virabhadrasana</MenuItem>
-          <MenuItem value="trikonasana">Trikonasana</MenuItem>
-        </Select>
+        <FormControl variant="outlined" size="large" style={{minWidth:300}}>
+          <Select
+            value={yoga}
+            onChange={(event) => {
+              const selectedYoga = event.target.value;
+              setYoga(selectedYoga);
+            }}
+          >
+            <MenuItem value="" disabled>
+              Select Yoga Pose
+            </MenuItem>
+            <MenuItem value="virabhadrasana">Virabhadrasana</MenuItem>
+            <MenuItem value="trikonasana">Trikonasana</MenuItem>
+          </Select>
+        </FormControl>
       </div>
 
       {selectYoga()}

@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import CounterPage from "./pages/CounterPage"
 import Yoga from './pages/Yoga'
 import About from "./pages/about";
+import Counter from "./components/counter";
 
 function App(){
   
@@ -18,7 +19,11 @@ function App(){
       <Route path='/' component={Home} exact/>
       <Route path='/counter' component={CounterPage} />
       <Route path='/yoga' component={Yoga} />
-      <Route path='/about' component={About} />
+      <Route path='/about'> <About /> </Route>
+      <Route path='/bicepcurls'> <Counter exercise={"bicepCurls"} /> </Route>
+      <Route path='/squats'> <Counter exercise={"squats"} /> </Route>
+      <Route path='/pushups'> <Counter exercise={"pushups"} /> </Route>
+      <Route path='/crunches'> <Counter exercise={"crunches"} /> </Route>
     </BrowserRouter>
   )
 }

@@ -2,13 +2,14 @@ import React from "react";
 import { Pose } from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import angleBetweenThreePoints from "./angle";
-import { Button, Select,MenuItem } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import bicepcurls from "../assets/images/bicepcurls.png";
 import crunches from "../assets/images/crunches.png";
 import pushups from "../assets/images/pushup.png";
 import squats from "../assets/images/squats.png";
+import { Link } from "react-router-dom";
 
 const styles = {
   webcam: {
@@ -39,10 +40,17 @@ const styles = {
     marginLeft: "auto",
     left: 1000,
     right: 0,
-    top: 250,
+    top: 200,
     textAlign: "center",
     width: 300,
-    height: 30,
+  },
+  back: {
+    position: "absolute",
+    marginRight: "auto",
+    marginLeft: "auto",
+    left: 1700,
+    right: 0,
+    top: 850,
   },
 };
 
@@ -59,8 +67,8 @@ const exrInfo = {
   },
   pushups: {
     index: [12, 14, 16],
-    ul: 180,
-    ll: 0,
+    ul: 160,
+    ll: 50,
   },
   crunches: {
     index: [12, 24, 26],
@@ -69,36 +77,36 @@ const exrInfo = {
   },
 };
 
-function Counter() {
-  const [exr, setExr] = useState("bicepCurls");
+let count = 0;
+let dir = 0;
+let angle = 0;
+function Counter(props) {
 
-  // useEffect(() => {
-  //   console.log("rendered counter page")
-  // });
+  //const [exr, setExr] = useState("bicepCurls");
 
   let imgSource;
-  if (exr == "bicepCurls") {
+  if (props.exercise === "bicepCurls") {
     imgSource = bicepcurls;
-  } else if (exr == "squats") {
+  } else if (props.exercise === "squats") {
     imgSource = squats;
-  } else if (exr == "pushups") {
+  } else if (props.exercise === "pushups") {
     imgSource = pushups;
-  } else if (exr == "crunches") {
+  } else if (props.exercise === "crunches") {
     imgSource = crunches;
   }
 
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const count = useRef(0);
-  const dir = useRef(0);
-  const angle = useRef();
+  //const count = useRef(null);
+  //const dir = useRef(null);
+  //let angle = useRef();
   let camera = null;
   const countTextbox = useRef(null);
 
   function onResult(results) {
     if (results.poseLandmarks) {
       const position = results.poseLandmarks;
-      //console.log(props)
+     
       // set height and width of canvas
       canvasRef.current.width = webcamRef.current.video.videoWidth;
       canvasRef.current.height = webcamRef.current.video.videoHeight;
@@ -108,7 +116,7 @@ function Counter() {
 
       //ratios between 0-1, covert them to pixel positions
       const upadatedPos = [];
-      const indexArray = exrInfo[exr].index;
+      const indexArray = exrInfo[props.exercise].index;
 
       for (let i = 0; i < 3; i += 1) {
         upadatedPos.push({
@@ -117,21 +125,24 @@ function Counter() {
         });
       }
       //console.log(upadatedPos)
-      angle.current = Math.round(angleBetweenThreePoints(upadatedPos));
-      //console.log(angle)
+      angle = Math.round(angleBetweenThreePoints(upadatedPos));
+      //console.log("Angle is getting updated ",angle)
 
       // Count reps
       //0 is down, 1 is up
-      if (angle.current > exrInfo[exr].ul) {
-        if (dir.current == 0) {
+      if (angle > exrInfo[props.exercise].ul) {
+        //console.log("test angle ",angle)
+        if (dir === 0) {
           //count.current = count.current + 0.5
-          dir.current = 1;
+          console.log(count," ",dir," decrement ",angle)
+          dir = 1;
         }
       }
-      if (angle.current < exrInfo[exr].ll) {
-        if (dir.current == 1) {
-          count.current = count.current + 1;
-          dir.current = 0;
+      if (angle < exrInfo[props.exercise].ll) {
+        if (dir === 1) {
+          count = count + 1;
+          console.log(count," ",dir," increment ",angle)
+          dir = 0;
         }
       }
 
@@ -157,18 +168,20 @@ function Counter() {
         canvasCtx.fillStyle = "#AAFF00";
         canvasCtx.fill();
       }
-      canvasCtx.font = "48px aerial";
+      canvasCtx.font = "40px aerial";
       canvasCtx.fillText(
-        angle.current,
+        angle,
         upadatedPos[1].x + 10,
-        upadatedPos[1].y + 10
+        upadatedPos[1].y + 40
       );
       canvasCtx.restore();
     }
   }
 
   useEffect(() => {
-    count.current = 0;
+    console.log("rendered")
+    count = 0;
+    dir = 0;
     //console.log(count.current)
     //console.log("rendered counter")
     const pose = new Pose({
@@ -179,7 +192,7 @@ function Counter() {
     pose.setOptions({
       modelComplexity: 1,
       smoothLandmarks: true,
-      minDetectionConfidence: 0.5,
+      minDetectionConfidence: 0.6,
       minTrackingConfidence: 0.5,
     });
 
@@ -191,7 +204,8 @@ function Counter() {
     ) {
       camera = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
-          countTextbox.current.value = count.current;
+          countTextbox.current.value = count;
+          //console.log(count, dir)
           //console.log("hello",countTextbox.current.value)
           await pose.send({ image: webcamRef.current.video });
         },
@@ -204,30 +218,15 @@ function Counter() {
   //console.log(props)
   function resetCount() {
     console.log("clicked");
-    count.current = 0;
+    count = 0;
+    dir = 0;
   }
 
   return (
     <div>
       <div style={styles.selectBox}>
-        <Select
-          value={exr}
-          onChange={(event) => {
-            const selectedExr = event.target.value;
-            setExr(selectedExr);
-          }}
-        >
-          <MenuItem value ="" disabled>Select Exercise</MenuItem>
-          <MenuItem value="bicepCurls">Bicep Curls</MenuItem>
-          <MenuItem value="squats">Squats</MenuItem>
-          <MenuItem value="pushups">Push Ups</MenuItem>
-          <MenuItem value="crunches">Crunches</MenuItem>
-        </Select>
-        <br></br>
-        <br></br>
-        <br></br>
+       
         <img src={imgSource} width="200" alternate="bicepimage"></img>
-        <br></br>
         <br></br>
         <br></br>
         <br></br>
@@ -238,7 +237,7 @@ function Counter() {
           <input
             variant="filled"
             ref={countTextbox}
-            value={count.current}
+            value={count}
             textAlign="center"
           />
           <br></br>
@@ -255,6 +254,13 @@ function Counter() {
       </div>
       <Webcam ref={webcamRef} style={styles.webcam} />
       <canvas ref={canvasRef} style={styles.webcam} />
+      <div style={styles.back}>
+        <Link to="/counter">
+          <Button size="large" variant="contained" color="primary">
+            Back
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
