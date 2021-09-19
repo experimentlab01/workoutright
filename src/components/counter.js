@@ -74,7 +74,7 @@ const exrInfo = {
   },
   crunches: {
     index: [12, 24, 26],
-    ul: 140,
+    ul: 130,
     ll: 50,
   },
 };
